@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/ShintaNakama/csv_parse/internal/coconala"
-	"github.com/ShintaNakama/csv_parse/internal/output"
 )
 
 func passArgs() string {
@@ -28,12 +27,10 @@ func main() {
 
 	defer file.Close()
 
-	salesDatas, err := coconala.Parse(file)
+	datas, err := coconala.Output(file)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
-
-	datas := output.NewOutputDatas(salesDatas)
 
 	for _, data := range datas {
 		fmt.Println(data.SalesDate)
