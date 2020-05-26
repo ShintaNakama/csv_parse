@@ -30,6 +30,10 @@ func Execute() {
 		Use:   "csv_parse",
 		Short: "CSV is parsed and displayed in the standard output.",
 		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				fmt.Println("not found csv file")
+				os.Exit(1)
+			}
 			parse(args[0])
 		},
 		// Uncomment the following line if your bare application
