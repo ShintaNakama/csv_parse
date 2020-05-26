@@ -4,8 +4,8 @@
 
 ## Usage
 ```
-# coconalasales `売上データcsvファイルpath`
-$ coconalasales ~/sample.csv
+# csv_parse `売上データcsvファイルpath`
+$ csv_parse ~/sample.csv
 2019/12/15
 36,500
 2019/12/15

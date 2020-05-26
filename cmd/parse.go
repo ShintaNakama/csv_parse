@@ -8,13 +8,6 @@ import (
 	"github.com/ShintaNakama/csv_parse/internal/coconala"
 )
 
-//func passArgs() string {
-//	flag.Parse()
-//	args := strings.Join(flag.Args(), "")
-//
-//	return args
-//}
-
 func parse(args string) {
 	csv := args
 
