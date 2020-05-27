@@ -18,13 +18,13 @@ func parse(args string) {
 
 	defer file.Close()
 
-	datas, err := coconala.Output(file)
+	salesData, err := coconala.Parse(file)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
-	for _, data := range datas {
-		fmt.Println(data.SalesDate)
-		fmt.Println(data.SalesAmount)
+	for _, d := range salesData {
+		fmt.Println(d.SalesDate)
+		fmt.Println(d.SalesAmount)
 	}
 }
