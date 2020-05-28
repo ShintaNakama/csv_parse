@@ -34,7 +34,7 @@ func Execute() {
 				fmt.Println("not found csv file")
 				os.Exit(1)
 			}
-			parse(args[0])
+			parse(args[0], os.Stdout)
 		},
 		// Uncomment the following line if your bare application
 		// has an action associated with it:
