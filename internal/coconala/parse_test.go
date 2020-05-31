@@ -1,21 +1,24 @@
 package coconala_test
 
 import (
+	"bytes"
 	"encoding/csv"
-	"os"
+	"io"
 	"testing"
 
 	"github.com/ShintaNakama/csv_parse/internal/coconala"
 )
 
-func createExpectedData(path string) ([][]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
+const sampleData = `売上確定日,トークルームNo,決済No,サービス名/見積り・仕事の相談名,購入者ID,購入者名,内訳,売上金額
+2019/12/15,4707685,5372134,ショップカード制作の件,777257,ccnl0703,基本料金,"36,500"
+2019/12/15,4707685,5504060,ショップカード制作の件,777257,ccnl0703,おひねり(追加),"2,190"
+2019/11/8,4596458,5407343,シンプルなロゴデザインを制作しませんか,105,ココナラ太郎,基本料金,"21,750"
+2019/11/8,4596458,5319576,シンプルなロゴデザインを制作しませんか,105,ココナラ太郎,オプション支払い,"2,175"
+2019/11/8,4596458,5276122,シンプルなロゴデザインを制作しませんか,105,ココナラ太郎,おひねり(追加),725
+`
 
-	r := csv.NewReader(file)
+func createExpectedData(sample io.Reader) ([][]string, error) {
+	r := csv.NewReader(sample)
 
 	records, err := r.ReadAll()
 	if err != nil {
@@ -26,18 +29,12 @@ func createExpectedData(path string) ([][]string, error) {
 }
 
 func TestParse(t *testing.T) {
-	expected, err := createExpectedData("../../testdata/sample.csv")
+	expected, err := createExpectedData(bytes.NewBufferString(sampleData))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	sampleData, err := os.Open("../../testdata/sample.csv")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer sampleData.Close()
-
-	coconalaSalesData, err := coconala.Parse(sampleData)
+	coconalaSalesData, err := coconala.Parse(bytes.NewBufferString(sampleData))
 	if err != nil {
 		t.Fatal(err)
 	}
