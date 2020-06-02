@@ -2,13 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os"
 
 	"github.com/ShintaNakama/csv_parse/internal/coconala"
 )
 
-func parse(args string) {
+func parse(args string, stdout io.Writer) {
 	csv := args
 
 	file, err := os.Open(csv)
@@ -24,7 +25,7 @@ func parse(args string) {
 	}
 
 	for _, d := range salesData {
-		fmt.Println(d.SalesDate)
-		fmt.Println(d.SalesAmount)
+		fmt.Fprintln(stdout, d.SalesDate)
+		fmt.Fprintln(stdout, d.SalesAmount)
 	}
 }

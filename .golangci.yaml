@@ -1,4 +1,6 @@
 run:
+  skip-files:
+    - export_test.go
 linters-settings:
   goimports:
     local-prefixes: github.com/ShintaNakama/csv_parse
